@@ -1,0 +1,23 @@
+class Solution:
+    def reverseWords(self, s: str) -> str:
+        # Split by spaces (splits on all whitespace) and removes extra spaces
+        words = s.split()
+        # Reverse the list of words
+        words.reverse()
+        # Join them with a single space
+        return ' '.join(words)
+
+
+
+
+Example Walkthrough
+s = "  hello   world  "
+words = s.split()  # ['hello', 'world']
+words.reverse()    # ['world', 'hello']
+result = ' '.join(words)  # "world hello"
+
+Time & Space Complexity
+
+Time → O(n) (splitting + reversing + joining)
+
+Space → O(n) (for list of words)
