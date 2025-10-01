@@ -34,3 +34,33 @@ Time & Space Complexity
 Time → O(n) (visit all nodes)
 
 Space → O(h) for recursion or stack (h = tree height)
+
+
+
+
+
+or
+
+
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+class Solution:
+    def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        res = []
+        
+        def inorder(node):
+            if not node:
+                return
+            inorder(node.left)    # visit left subtree
+            res.append(node.val)  # visit root
+            inorder(node.right)   # visit right subtree
+        
+        inorder(root)
+        return res
+
