@@ -1,0 +1,43 @@
+from typing import List, Optional
+
+# Definition for a BST node
+class TreeNode:
+    def __init__(self, val=0):
+        self.val = val
+        self.left = None
+        self.right = None
+
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        # Helper to insert a value into BST
+        def insert(root: Optional[TreeNode], val: int) -> TreeNode:
+            if not root:
+                return TreeNode(val)
+            if val < root.val:
+                root.left = insert(root.left, val)
+            else:
+                root.right = insert(root.right, val)
+            return root
+
+        # Helper for reverse inorder traversal
+        def reverse_inorder(root: Optional[TreeNode]):
+            nonlocal k, result
+            if not root or k == 0:
+                return
+            reverse_inorder(root.right)
+            if k > 0:
+                k -= 1
+                if k == 0:
+                    result = root.val
+                    return
+            reverse_inorder(root.left)
+
+        # Build BST
+        bst_root = None
+        for num in nums:
+            bst_root = insert(bst_root, num)
+
+        # Find kth largest
+        result = None
+        reverse_inorder(bst_root)
+        return result
