@@ -1,0 +1,21 @@
+def subsetSums(arr, n, index=0, current_sum=0, result=None):
+    if result is None:
+        result = []
+    
+    # Base case: if we have considered all elements
+    if index == n:
+        result.append(current_sum)
+        return result
+    
+    # Include arr[index] in the current subset
+    subsetSums(arr, n, index + 1, current_sum + arr[index], result)
+    
+    # Exclude arr[index] from the current subset
+    subsetSums(arr, n, index + 1, current_sum, result)
+    
+    return result
+
+# Example usage
+arr = [1, 2, 3]
+n = len(arr)
+print(subsetSums(arr, n))  # Output: [6, 5, 4, 3, 3, 2, 1, 0]
