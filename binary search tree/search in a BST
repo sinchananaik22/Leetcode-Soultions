@@ -1,0 +1,43 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+class Solution:
+    def searchBST(self, root: Optional[TreeNode], val: int) -> Optional[TreeNode]:
+        if not root:
+            return None
+        if root.val == val:
+            return root
+        elif val < root.val:
+            return self.searchBST(root.left, val)
+        else:
+            return self.searchBST(root.right, val)
+
+
+
+Example
+Input: root = [4,2,7,1,3], val = 2
+
+      4
+     / \
+    2   7
+   / \
+  1   3
+
+Output: [2,1,3]
+
+
+Search goes left since 2 < 4 → found node 2 → return subtree rooted at 2.
+
+Time Complexity
+
+O(h), where h = height of the BST (log n for balanced, n for skewed)
+
+Space Complexity
+
+Recursive: O(h) (recursion stack)
+
+Iterative: O(1)
