@@ -1,0 +1,31 @@
+from typing import List, DefaultDict
+from collections import defaultdict
+
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        # Build graph: u -> v if u < v
+        graph = defaultdict(list)
+        n = len(nums)
+        for i in range(n):
+            for j in range(n):
+                if nums[i] < nums[j]:
+                    graph[i].append(j)
+
+        visited = [False] * n
+        order = []
+
+        def dfs(node):
+            if visited[node]:
+                return
+            visited[node] = True
+            for neighbor in graph[node]:
+                dfs(neighbor)
+            order.append(nums[node])  # Post-order for descending
+
+        for i in range(n):
+            if not visited[i]:
+                dfs(i)
+
+        # order has largest at the end due to post-order, reverse it
+        order.reverse()
+        return order[k-1]
