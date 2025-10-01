@@ -1,0 +1,40 @@
+from typing import List
+
+class Solution:
+    def majorityElement(self, nums: List[int]) -> int:
+        candidate = None
+        count = 0
+        
+        for num in nums:
+            if count == 0:
+                candidate = num
+            count += (1 if num == candidate else -1)
+        
+        return candidate
+
+
+
+Example Dry Run
+
+Input: nums = [2,2,1,1,1,2,2]
+
+
+| Step | num | candidate | count |
+| ---- | --- | --------- | ----- |
+| 1    | 2   | 2         | 1     |
+| 2    | 2   | 2         | 2     |
+| 3    | 1   | 2         | 1     |
+| 4    | 1   | 2         | 0     |
+| 5    | 1   | 1         | 1     |
+| 6    | 2   | 1         | 0     |
+| 7    | 2   | 2         | 1     |
+
+
+
+✅ Output: 2
+
+⚡ Complexity
+
+Time: O(n)
+
+Space: O(1)
