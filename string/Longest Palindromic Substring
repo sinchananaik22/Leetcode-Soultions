@@ -1,0 +1,46 @@
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        if not s:
+            return ""
+        
+        start, end = 0, 0
+        
+        for i in range(len(s)):
+            # Odd length palindrome
+            len1 = self.expandFromCenter(s, i, i)
+            # Even length palindrome
+            len2 = self.expandFromCenter(s, i, i + 1)
+            
+            max_len = max(len1, len2)
+            
+            if max_len > end - start:
+                start = i - (max_len - 1) // 2
+                end = i + max_len // 2
+        
+        return s[start:end + 1]
+    
+    def expandFromCenter(self, s, left, right):
+        while left >= 0 and right < len(s) and s[left] == s[right]:
+            left -= 1
+            right += 1
+        # length = right - left - 1 because we expanded one step too far on both sides
+        return right - left - 1
+
+
+
+
+
+
+Example Walkthrough
+s = "babad"
+i = 0 -> expand "b" -> length=1
+i = 1 -> expand "bab" -> length=3
+i = 2 -> expand "aba" -> length=3
+...
+Result = "bab" (or "aba")
+
+Time & Space Complexity
+
+Time → O(n²) (each center expands at most n steps)
+
+Space → O(1) (no extra space except variables)
