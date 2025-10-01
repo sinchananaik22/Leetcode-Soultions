@@ -1,0 +1,16 @@
+def bellman_ford(graph, V, start):
+    # graph: list of edges (u, v, w)
+    dist = [float("inf")] * V
+    dist[start] = 0
+
+    for _ in range(V - 1):
+        for u, v, w in graph:
+            if dist[u] + w < dist[v]:
+                dist[v] = dist[u] + w
+    
+    # Check negative cycle
+    for u, v, w in graph:
+        if dist[u] + w < dist[v]:
+            return "Negative cycle detected"
+    
+    return dist
