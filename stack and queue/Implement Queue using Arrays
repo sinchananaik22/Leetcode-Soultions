@@ -1,0 +1,27 @@
+class Queue:
+    def __init__(self):
+        self.queue = []
+
+    # Enqueue element at the end
+    def enqueue(self, val):
+        self.queue.append(val)
+
+    # Dequeue element from the front
+    def dequeue(self):
+        if self.isEmpty():
+            return None
+        return self.queue.pop(0)  # Remove first element
+
+    # Peek at the front element without removing
+    def front(self):
+        if self.isEmpty():
+            return None
+        return self.queue[0]
+
+    # Check if queue is empty
+    def isEmpty(self):
+        return len(self.queue) == 0
+
+    # Get size of queue
+    def size(self):
+        return len(self.queue)
