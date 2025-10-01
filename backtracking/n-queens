@@ -1,0 +1,42 @@
+from typing import List
+
+class Solution:
+    def solveNQueens(self, n: int) -> List[List[str]]:
+        solutions = []
+
+        def backtrack(row, cols, diagonals1, diagonals2, board):
+            if row == n:
+                # Found a valid board
+                solutions.append([''.join(row) for row in board])
+                return
+
+            for col in range(n):
+                diag1 = row - col
+                diag2 = row + col
+                if col in cols or diag1 in diagonals1 or diag2 in diagonals2:
+                    continue  # Can't place queen here
+
+                # Place queen
+                board[row][col] = 'Q'
+                cols.add(col)
+                diagonals1.add(diag1)
+                diagonals2.add(diag2)
+
+                # Move to next row
+                backtrack(row + 1, cols, diagonals1, diagonals2, board)
+
+                # Backtrack
+                board[row][col] = '.'
+                cols.remove(col)
+                diagonals1.remove(diag1)
+                diagonals2.remove(diag2)
+
+        # Initialize empty board
+        empty_board = [['.'] * n for _ in range(n)]
+        backtrack(0, set(), set(), set(), empty_board)
+        return solutions
+
+# Example usage
+sol = Solution()
+print(sol.solveNQueens(4))
+# Output: [[".Q..","...Q","Q...","..Q."],["..Q.","Q...","...Q",".Q.."]]
