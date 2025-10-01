@@ -1,0 +1,41 @@
+class Solution:
+    def romanToInt(self, s: str) -> int:
+        roman_map = {
+            'I': 1,
+            'V': 5,
+            'X': 10,
+            'L': 50,
+            'C': 100,
+            'D': 500,
+            'M': 1000
+        }
+        
+        total = 0
+        n = len(s)
+        
+        for i in range(n):
+            # If next symbol is larger → subtract current value
+            if i < n - 1 and roman_map[s[i]] < roman_map[s[i + 1]]:
+                total -= roman_map[s[i]]
+            else:
+                total += roman_map[s[i]]
+        
+        return total
+
+
+
+
+
+Example Walkthrough
+s = "MCMXCIV"
+
+i=0: 'M'=1000, next='C'=100 → 1000 added → total=1000
+i=1: 'C'=100, next='M'=1000 → subtract 100 → total=900
+i=2: 'M'=1000 → add 1000 → total=1900
+i=3: 'X'=10, next='C'=100 → subtract 10 → total=1890
+i=4: 'C'=100 → add 100 → total=1990
+i=5: 'I'=1, next='V'=5 → subtract 1 → total=1993
+i=6: 'V'=5 → add 5 → total=1998
+
+
+Oops small mistake in example addition above — final total = 1994.
