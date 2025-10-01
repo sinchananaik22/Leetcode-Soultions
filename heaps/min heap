@@ -1,0 +1,33 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+void swap(int *a, int *b) {
+    int t = *a;
+    *a = *b;
+    *b = t;
+}
+
+void heapify(int heap[], int n, int i) {
+    int smallest = i;
+    int left = 2*i + 1;
+    int right = 2*i + 2;
+
+    if (left < n && heap[left] < heap[smallest])
+        smallest = left;
+    if (right < n && heap[right] < heap[smallest])
+        smallest = right;
+
+    if (smallest != i) {
+        swap(&heap[i], &heap[smallest]);
+        heapify(heap, n, smallest);
+    }
+}
+
+int extractMin(int heap[], int *n) {
+    if (*n <= 0) return -1;
+    int root = heap[0];
+    heap[0] = heap[*n - 1];
+    (*n)--;
+    heapify(heap, *n, 0);
+    return root;
+}
