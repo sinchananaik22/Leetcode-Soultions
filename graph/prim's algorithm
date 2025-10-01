@@ -1,0 +1,19 @@
+import heapq
+
+def prim(graph, V):
+    visited = [False] * V
+    pq = [(0, 0)]  # (weight, node)
+    mst_weight = 0
+
+    while pq:
+        w, u = heapq.heappop(pq)
+        if visited[u]:
+            continue
+        visited[u] = True
+        mst_weight += w
+
+        for v, wt in graph[u]:
+            if not visited[v]:
+                heapq.heappush(pq, (wt, v))
+    
+    return mst_weight
