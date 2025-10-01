@@ -1,0 +1,42 @@
+from typing import List
+
+class Solution:
+    def findMissingAndRepeating(self, nums: List[int]) -> List[int]:
+        n = len(nums)
+        
+        # Expected sums
+        S = n * (n + 1) // 2
+        P = n * (n + 1) * (2 * n + 1) // 6
+        
+        # Actual sums
+        S1 = sum(nums)
+        P1 = sum(x * x for x in nums)
+        
+        # Equations
+        diff = S1 - S          # x - y
+        sq_diff = P1 - P       # x^2 - y^2
+        
+        sum_xy = sq_diff // diff   # x + y
+        
+        x = (diff + sum_xy) // 2
+        y = x - diff
+        
+        return [x, y]   # [repeated, missing]
+
+
+
+
+
+Example Run
+nums = [3,1,2,5,3]
+S = 15
+P = 55
+S1 = 14
+P1 = 48
+diff = -1 (x - y)
+sq_diff = -7 (x^2 - y^2)
+
+sum_xy = 7
+x = ( -1 + 7 ) / 2 = 3
+y = 3 - (-1) = 4
+Output = [3, 4]
