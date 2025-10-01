@@ -1,0 +1,31 @@
+class Solution:
+    def partition(self, s: str) -> list[list[str]]:
+        result = []
+
+        # Helper function to check if a string is a palindrome
+        def isPalindrome(sub: str) -> bool:
+            return sub == sub[::-1]
+
+        # Backtracking function
+        def backtrack(start: int, path: list[str]):
+            if start == len(s):
+                result.append(path[:])  # Found a valid partition
+                return
+            for end in range(start + 1, len(s) + 1):
+                current = s[start:end]
+                if isPalindrome(current):
+                    path.append(current)
+                    backtrack(end, path)
+                    path.pop()  # Backtrack
+
+        backtrack(0, [])
+        return result
+
+# Example usage
+s = "aab"
+print(Solution().partition(s))
+# Output: [["a","a","b"], ["aa","b"]]
+
+s = "a"
+print(Solution().partition(s))
+# Output: [["a"]]
