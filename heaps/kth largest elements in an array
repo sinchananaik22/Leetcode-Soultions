@@ -1,0 +1,121 @@
+import heapq
+from typing import List
+
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        # Create a min heap with first k elements
+        min_heap = nums[:k]
+        heapq.heapify(min_heap)
+        
+        # Process the remaining elements
+        for num in nums[k:]:
+            if num > min_heap[0]:  # If current num > smallest in heap
+                heapq.heapreplace(min_heap, num)  # Pop smallest and push current
+        
+        # Root of min heap is the kth largest element
+        return min_heap[0]
+
+
+
+
+
+Absolutely! Let’s walk through the **Min Heap approach** step by step using an example.
+
+---
+
+### **Example**
+
+```python
+nums = [3, 2, 1, 5, 6, 4]
+k = 2
+```
+
+We want the **2nd largest element**.
+
+---
+
+### **Step 1: Create a Min Heap with first k elements**
+
+Take first `k = 2` elements: `[3, 2]`
+
+* Min heap after `heapify([3, 2])` → `[2, 3]`
+  (smallest element is at the root)
+
+```
+Heap: 
+    2
+   /
+  3
+```
+
+---
+
+### **Step 2: Process remaining elements**
+
+Remaining elements: `[1, 5, 6, 4]`
+
+#### **a) num = 1**
+
+* Compare with heap root: `1 < 2` → **ignore**
+* Heap remains `[2, 3]`
+
+#### **b) num = 5**
+
+* Compare with root: `5 > 2` → **replace root with 5**
+* `heapreplace(min_heap, 5)` → heap becomes `[3, 5]`
+
+```
+Heap:
+    3
+   /
+  5
+```
+
+#### **c) num = 6**
+
+* Compare with root: `6 > 3` → **replace root with 6**
+* Heap becomes `[5, 6]`
+
+```
+Heap:
+    5
+   /
+  6
+```
+
+#### **d) num = 4**
+
+* Compare with root: `4 < 5` → **ignore**
+* Heap remains `[5, 6]`
+
+---
+
+### **Step 3: Return root**
+
+* Root of heap = `5` → **2nd largest element** ✅
+
+---
+
+### **Heap after each step**
+
+| Step  | Heap   |
+| ----- | ------ |
+| Init  | [2, 3] |
+| num=1 | [2, 3] |
+| num=5 | [3, 5] |
+| num=6 | [5, 6] |
+| num=4 | [5, 6] |
+
+* Final root → **5** ✅
+
+---
+
+💡 **Key Idea:**
+
+* Heap always keeps **k largest elements**.
+* Root = **kth largest**.
+* Very efficient for **large arrays**.
+
+---
+
+
