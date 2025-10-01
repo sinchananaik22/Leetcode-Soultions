@@ -1,0 +1,30 @@
+class Solution:
+    def combinationSum(self, candidates: list[int], target: int) -> list[list[int]]:
+        result = []
+
+        def backtrack(start, path, total):
+            if total == target:
+                result.append(path[:])
+                return
+            if total > target:
+                return
+            
+            for i in range(start, len(candidates)):
+                # Include candidates[i] and recurse (can use same number)
+                path.append(candidates[i])
+                backtrack(i, path, total + candidates[i])
+                path.pop()  # Backtrack
+
+        backtrack(0, [], 0)
+        return result
+
+# Example usage
+candidates = [2,3,6,7]
+target = 7
+print(Solution().combinationSum(candidates, target))
+# Output: [[2,2,3], [7]]
+
+candidates = [2,3,5]
+target = 8
+print(Solution().combinationSum(candidates, target))
+# Output: [[2,2,2,2], [2,3,3], [3,5]]
