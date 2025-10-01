@@ -1,0 +1,45 @@
+class Solution:
+    def findMaxConsecutiveOnes(self, nums: List[int]) -> int:
+        max_count = 0
+        count = 0
+        
+        for num in nums:
+            if num == 1:
+                count += 1
+                max_count = max(max_count, count)
+            else:
+                count = 0
+        
+        return max_count
+
+
+
+      Example Walkthrough
+
+Input: [1,1,0,1,1,1]
+
+Step through array:
+
+1 → count=1, max_count=1
+
+1 → count=2, max_count=2
+
+0 → count=0
+
+1 → count=1
+
+1 → count=2
+
+1 → count=3, max_count=3 ✅
+
+Output: 3
+
+Input: [1,0,1,1,0,1]
+
+Longest consecutive 1s → 2 ✅
+
+⚡ Complexity
+
+Time: O(n) → single pass
+
+Space: O(1) → constant extra space
