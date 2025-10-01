@@ -1,0 +1,20 @@
+from math import factorial
+
+class Solution:
+    def getPermutation(self, n: int, k: int) -> str:
+        numbers = list(range(1, n + 1))  # List of numbers to pick from
+        k -= 1  # Convert k to 0-indexed
+        result = []
+
+        for i in range(n, 0, -1):
+            fact = factorial(i - 1)
+            index = k // fact
+            result.append(str(numbers.pop(index)))
+            k %= fact
+
+        return ''.join(result)
+
+# Example usage
+print(Solution().getPermutation(3, 3))  # Output: "213"
+print(Solution().getPermutation(4, 9))  # Output: "2314"
+print(Solution().getPermutation(3, 1))  # Output: "123"
