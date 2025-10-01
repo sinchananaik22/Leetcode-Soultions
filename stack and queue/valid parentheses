@@ -1,0 +1,18 @@
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stack = []
+        # Mapping of closing to opening brackets
+        bracket_map = {')': '(', '}': '{', ']': '['}
+
+        for char in s:
+            if char in bracket_map.values():  # Opening bracket
+                stack.append(char)
+            elif char in bracket_map:  # Closing bracket
+                if not stack or stack[-1] != bracket_map[char]:
+                    return False
+                stack.pop()
+            else:
+                # Invalid character (not needed here since s contains only brackets)
+                return False
+
+        return len(stack) == 0  # Stack should be empty if valid
