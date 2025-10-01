@@ -1,0 +1,27 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def deleteNode(self, node):
+        node.val = node.next.val
+        node.next = node.next.next
+
+
+
+
+          Example Walkthrough
+
+Input: head = [4,5,1,9], node = 5
+
+Copy next node value: node.val = 1 → list becomes [4,1,1,9]
+
+Skip next node: node.next = node.next.next → list becomes [4,1,9] ✅
+
+⚡ Complexity
+
+Time: O(1) → constant time
+
+Space: O(1) → no extra space
