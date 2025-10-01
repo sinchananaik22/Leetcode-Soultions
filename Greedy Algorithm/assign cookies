@@ -1,0 +1,25 @@
+class Solution:
+    def findContentChildren(self, g: list[int], s: list[int]) -> int:
+        # Sort children greed and cookie sizes
+        g.sort()
+        s.sort()
+        
+        child_i = 0  # index for children
+        cookie_j = 0  # index for cookies
+        
+        while child_i < len(g) and cookie_j < len(s):
+            if s[cookie_j] >= g[child_i]:
+                # Cookie can satisfy the child
+                child_i += 1
+            cookie_j += 1  # move to next cookie
+        
+        return child_i  # number of content children
+
+# Example usage
+g = [1,2,3]
+s = [1,1]
+print(Solution().findContentChildren(g, s))  # Output: 1
+
+g = [1,2]
+s = [1,2,3]
+print(Solution().findContentChildren(g, s))  # Output: 2
