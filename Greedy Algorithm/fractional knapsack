@@ -1,0 +1,37 @@
+class Item:
+    def __init__(self, value, weight):
+        self.value = value
+        self.weight = weight
+
+def fractionalKnapsack(items, W):
+    # Sort by value/weight ratio
+    items.sort(key=lambda x: x.value / x.weight, reverse=True)
+    total_value = 0.0
+    
+    for item in items:
+        if W == 0:
+            break
+        if item.weight <= W:
+            total_value += item.value
+            W -= item.weight
+        else:
+            total_value += item.value * (W / item.weight)
+            W = 0
+    return total_value
+
+# Example usage
+items = [Item(60, 10), Item(100, 20), Item(120, 30)]
+capacity = 50
+print(fractionalKnapsack(items, capacity))
+# Output: 240.0
+
+
+
+
+Complexity
+
+Sorting: O(n log n)
+
+Selecting items: O(n)
+
+Space: O(1)
