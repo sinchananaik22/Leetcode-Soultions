@@ -1,0 +1,28 @@
+def jobSequencing(jobs):
+    """
+    jobs: list of tuples (job_id, deadline, profit)
+    returns: scheduled job IDs and total profit
+    """
+    # Sort jobs by profit descending
+    jobs.sort(key=lambda x: x[2], reverse=True)
+    
+    n = max(job[1] for job in jobs)  # max deadline
+    result = [None] * n
+    total_profit = 0
+    
+    for job in jobs:
+        job_id, deadline, profit = job
+        # Place job in latest available slot before its deadline
+        for j in range(deadline-1, -1, -1):
+            if result[j] is None:
+                result[j] = job_id
+                total_profit += profit
+                break
+                
+    scheduled_jobs = [job for job in result if job is not None]
+    return scheduled_jobs, total_profit
+
+# Example usage
+jobs = [(1, 2, 100), (2, 1, 19), (3, 2, 27), (4, 1, 25), (5, 3, 15)]
+print(jobSequencing(jobs))
+# Output: ([1, 3, 5], 142)
