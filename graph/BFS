@@ -1,0 +1,30 @@
+from collections import defaultdict, deque
+from typing import List
+
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        n = len(nums)
+        out_degree = [0] * n
+        predecessors = defaultdict(list)
+
+        # Build DAG: u -> v if nums[u] < nums[v]
+        for i in range(n):
+            for j in range(n):
+                if nums[i] < nums[j]:
+                    out_degree[i] += 1
+                    predecessors[j].append(i)
+
+        # Queue of sinks (out-degree 0)
+        queue = deque([i for i in range(n) if out_degree[i] == 0])
+
+        count = 0
+        while queue:
+            node = queue.popleft()
+            count += 1
+            if count == k:
+                return nums[node]
+            # Reduce out-degree of predecessors
+            for pred in predecessors[node]:
+                out_degree[pred] -= 1
+                if out_degree[pred] == 0:
+                    queue.append(pred)
