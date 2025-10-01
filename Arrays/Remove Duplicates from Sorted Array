@@ -1,0 +1,41 @@
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        if not nums:
+            return 0
+        
+        i = 0  # last unique element index
+        for j in range(1, len(nums)):
+            if nums[j] != nums[i]:
+                i += 1
+                nums[i] = nums[j]
+        
+        return i + 1
+
+
+
+
+Example Walkthrough
+
+Input: [0,0,1,1,1,2,2,3,3,4]
+
+Start: i=0 → nums[i]=0
+
+j=1 → nums[j]=0 → duplicate → skip
+
+j=2 → nums[j]=1 → new → i=1, nums[i]=1
+
+j=3 → nums[j]=1 → duplicate → skip
+
+j=5 → nums[j]=2 → new → i=2, nums[i]=2
+
+j=7 → nums[j]=3 → new → i=3, nums[i]=3
+
+j=9 → nums[j]=4 → new → i=4, nums[i]=4
+
+Output: 5, nums = [0,1,2,3,4,...] ✅
+
+⚡ Complexity
+
+Time: O(n) → single pass
+
+Space: O(1) → in-place
