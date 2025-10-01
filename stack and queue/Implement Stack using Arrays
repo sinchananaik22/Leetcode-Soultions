@@ -1,0 +1,27 @@
+class Stack:
+    def __init__(self):
+        self.stack = []
+
+    # Push element onto stack
+    def push(self, val):
+        self.stack.append(val)
+
+    # Pop element from stack
+    def pop(self):
+        if self.isEmpty():
+            return None
+        return self.stack.pop()
+
+    # Peek top element without removing
+    def peek(self):
+        if self.isEmpty():
+            return None
+        return self.stack[-1]
+
+    # Check if stack is empty
+    def isEmpty(self):
+        return len(self.stack) == 0
+
+    # Get size of stack
+    def size(self):
+        return len(self.stack)
