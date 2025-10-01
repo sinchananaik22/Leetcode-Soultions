@@ -1,0 +1,34 @@
+class Solution:
+    def isAnagram(self, s: str, t: str) -> bool:
+        if len(s) != len(t):
+            return False
+        
+        count = [0] * 26  # 26 lowercase English letters
+        
+        for i in range(len(s)):
+            count[ord(s[i]) - ord('a')] += 1
+            count[ord(t[i]) - ord('a')] -= 1
+        
+        # If all counts are zero, they are anagrams
+        return all(x == 0 for x in count)
+
+
+
+
+
+
+
+          Example Walkthrough
+s = "anagram", t = "nagaram"
+count after processing all characters = [0,0,0,...]  # all zeros
+return True
+
+s = "rat", t = "car"
+count after processing = [0,1, ...]  # not all zeros
+return False
+
+Time & Space Complexity
+
+Time → O(n)
+
+Space → O(1) (count array of fixed size 26)
